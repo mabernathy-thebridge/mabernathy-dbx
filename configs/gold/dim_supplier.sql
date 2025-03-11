@@ -8,6 +8,6 @@ SELECT
     s.s_acctbal as account_balance,
     s.s_comment as supplier_comment,
     current_timestamp() as silver_update_timestamp
-FROM practice_sandbox.ma_sandbox.supplier s
-LEFT JOIN practice_sandbox.ma_sandbox.nation n
+FROM practice_sandbox.ma_sandbox.silver_supplier s
+LEFT JOIN practice_sandbox.ma_sandbox.silver_nation n
     ON s.s_nationkey = n.n_nationkey

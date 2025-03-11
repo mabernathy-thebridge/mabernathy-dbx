@@ -17,4 +17,4 @@ SELECT
     TRIM(l_shipmode) as ship_mode,
     l_comment as line_comment,
     current_timestamp() as silver_update_timestamp
-FROM practice_sandbox.ma_sandbox.lineitem
+FROM practice_sandbox.ma_sandbox.silver_lineitem

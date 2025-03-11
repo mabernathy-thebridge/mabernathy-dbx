@@ -9,6 +9,6 @@ SELECT
     TRIM(c.c_mktsegment) as market_segment,
     c.c_comment as customer_comment,
     current_timestamp() as silver_update_timestamp
-FROM practice_sandbox.ma_sandbox.customer c
-LEFT JOIN practice_sandbox.ma_sandbox.nation n
+FROM practice_sandbox.ma_sandbox.silver_customer c
+LEFT JOIN practice_sandbox.ma_sandbox.silver_nation n
     ON c.c_nationkey = n.n_nationkey

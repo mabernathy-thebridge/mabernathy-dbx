@@ -9,4 +9,4 @@ SELECT
     o.o_shippriority as shipping_priority,
     o.o_comment as order_comment,
     current_timestamp() as silver_update_timestamp
-FROM practice_sandbox.ma_sandbox.orders o
+FROM practice_sandbox.ma_sandbox.silver_orders o

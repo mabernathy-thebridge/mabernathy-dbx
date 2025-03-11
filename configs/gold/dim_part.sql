@@ -9,4 +9,4 @@ SELECT
     p_retailprice as retail_price,
     p_comment as part_comment,
     current_timestamp() as silver_update_timestamp
-FROM practice_sandbox.ma_sandbox.part
+FROM practice_sandbox.ma_sandbox.silver_part

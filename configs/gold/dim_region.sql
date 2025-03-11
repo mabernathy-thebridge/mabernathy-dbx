@@ -3,4 +3,4 @@ SELECT
     TRIM(r_name) as region_name,
     r_comment as region_comment,
     current_timestamp() as silver_update_timestamp
-FROM practice_sandbox.ma_sandbox.region
+FROM practice_sandbox.ma_sandbox.silver_region
