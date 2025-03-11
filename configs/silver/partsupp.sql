@@ -1,4 +1,4 @@
-SELECT 
+eSELECT 
     CAST(ps_partkey AS BIGINT) as ps_partkey,
     CAST(ps_suppkey AS BIGINT) as ps_suppkey,
     CAST(ps_availqty AS INT) as ps_availqty,
