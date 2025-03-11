@@ -1,12 +1,15 @@
 # Databricks notebook source
-
 import os
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # COMMAND ----------
+
 # DBTITLE 1, Notebook Parameters
-dbutils.widgets.dropdown("should_test", "true", ["true", "false"])
+dbutils.widgets.dropdown("should_test", "false", ["true", "false"])
+
+# COMMAND ----------
+
 should_test = dbutils.widgets.get("should_test").lower() == "true"
 
 # COMMAND ----------
@@ -39,7 +42,7 @@ def process_sql_file(sql_file):
         
         # Create Delta table
         spark.sql(f"""
-        CREATE TABLE IF NOT EXISTS ma_sandbox.silver_{table_name}
+        CREATE TABLE IF NOT EXISTS practice_sandbox.ma_sandbox.silver_{table_name}
         USING DELTA
         AS
         SELECT * FROM {temp_view_name}
@@ -48,7 +51,7 @@ def process_sql_file(sql_file):
         # Clean up temporary view
         spark.sql(f"DROP VIEW IF EXISTS {temp_view_name}")
         
-        return f"Successfully created Delta table: ma_sandbox.silver_{table_name}"
+        return f"Successfully created Delta table: practice_sandbox.ma_sandbox.silver_{table_name}"
     except Exception as e:
         return f"Error processing {sql_file}: {str(e)}"
 
@@ -70,7 +73,7 @@ with ThreadPoolExecutor(max_workers=max_workers) as executor:
 # COMMAND ----------
 
 # List all created tables
-tables = spark.sql("SHOW TABLES IN ma_sandbox").filter("tableType = 'DELTA' AND tableName LIKE 'silver_%'")
+tables = spark.sql("SHOW TABLES IN practice_sandbox.ma_sandbox").filter("tableName LIKE 'silver_%'")
 display(tables)
 
 # COMMAND ----------
@@ -131,9 +134,9 @@ if should_test:
     print("Running data quality tests...")
     all_test_results = []
 
-    tables_list = spark.sql("SHOW TABLES IN ma_sandbox").filter("tableType = 'DELTA' AND tableName LIKE 'silver_%'").collect()
+    tables_list = spark.sql("SHOW TABLES IN practice_sandbox.ma_sandbox").filter("tableName LIKE 'silver_%'").collect()
     for table in tables_list:
-        table_name = f"ma_sandbox.{table.tableName}"
+        table_name = f"practice_sandbox.ma_sandbox.{table.tableName}"
         
         # Run not null tests
         null_results = test_not_null_ids(table_name)
