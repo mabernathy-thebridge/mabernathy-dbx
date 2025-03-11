@@ -8,8 +8,7 @@ WITH customer_orders AS (
         o.o_totalprice,
         l.l_quantity,
         l.l_extendedprice,
-        p.p_type,
-        p.p_category
+        p.p_type
     FROM practice_sandbox.ma_sandbox.silver_customer c
     LEFT JOIN practice_sandbox.ma_sandbox.silver_orders o
         ON c.c_custkey = o.o_custkey
@@ -35,14 +34,13 @@ customer_metrics AS (
     FROM customer_orders
     GROUP BY 1, 2, 3
 )
-
 SELECT 
     cm.*,
     n.n_name as nation_name,
     r.r_name as region_name,
     CASE 
-        WHEN total_spent > 100000 THEN 'High Value'
-        WHEN total_spent > 50000 THEN 'Medium Value'
+        WHEN total_spent > 10000000 THEN 'High Value'
+        WHEN total_spent > 5000000 THEN 'Medium Value'
         ELSE 'Low Value'
     END as customer_segment,
     current_timestamp() as model_timestamp
@@ -51,3 +49,4 @@ LEFT JOIN practice_sandbox.ma_sandbox.silver_nation n
     ON cm.c_nationkey = n.n_nationkey
 LEFT JOIN practice_sandbox.ma_sandbox.silver_region r
     ON n.n_regionkey = r.r_regionkey
+
