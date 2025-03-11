@@ -5,4 +5,4 @@ SELECT
     ps_supplycost as supply_cost,
     ps_comment as partsupp_comment,
     current_timestamp() as silver_update_timestamp
-FROM practice_sandbox.ma_sandbox.partsupp
+FROM practice_sandbox.ma_sandbox.silver_partsupp
