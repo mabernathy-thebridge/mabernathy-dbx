@@ -22,7 +22,7 @@ def read_sql_file(file_path):
 # COMMAND ----------
 
 # Get list of SQL files in silver config folder
-silver_path = "../configs/silver"
+silver_path = "./configs/silver"
 sql_files = [f for f in os.listdir(silver_path) if f.endswith('.sql')]
 
 # COMMAND ----------
@@ -38,7 +38,8 @@ def process_sql_file(sql_file):
         
         # Create temporary view with unique name to avoid conflicts
         temp_view_name = f"temp_view_{table_name}"
-        spark.sql(sql_content).createOrReplaceTempView(temp_view_name)
+        df_sql = spark.sql(sql_content)
+        df_sql.createOrReplaceTempView(temp_view_name)
         
         # Create Delta table
         spark.sql(f"""
@@ -47,11 +48,12 @@ def process_sql_file(sql_file):
         AS
         SELECT * FROM {temp_view_name}
         """)
-        
+        df_count = df_sql.count()
         # Clean up temporary view
         spark.sql(f"DROP VIEW IF EXISTS {temp_view_name}")
         
-        return f"Successfully created Delta table: practice_sandbox.ma_sandbox.silver_{table_name}"
+        return f"Successfully created Delta table: practice_sandbox.ma_sandbox.silver_{table_name} with {df_count} rows"
+    
     except Exception as e:
         return f"Error processing {sql_file}: {str(e)}"
 
@@ -83,8 +85,8 @@ def test_not_null_ids(table_name):
     # Get all ID columns (assuming they end with '_id' or are named 'id')
     columns_df = spark.sql(f"DESCRIBE {table_name}")
     id_columns = [row.col_name for row in columns_df.collect() 
-                 if row.col_name.lower().endswith('_id') 
-                 or row.col_name.lower() == 'id']
+                 if row.col_name.lower().endswith('key') 
+                 or row.col_name.lower() == 'key']
     
     results = []
     for col in id_columns:
@@ -102,8 +104,8 @@ def test_unique_ids(table_name):
     """Test that ID columns contain unique values"""
     columns_df = spark.sql(f"DESCRIBE {table_name}")
     id_columns = [row.col_name for row in columns_df.collect() 
-                 if row.col_name.lower().endswith('_id') 
-                 or row.col_name.lower() == 'id']
+                 if row.col_name.lower().endswith('key') 
+                 or row.col_name.lower() == 'key']
     
     results = []
     for col in id_columns:

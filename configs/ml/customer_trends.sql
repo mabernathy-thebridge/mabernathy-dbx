@@ -49,4 +49,5 @@ LEFT JOIN practice_sandbox.ma_sandbox.silver_nation n
     ON cm.c_nationkey = n.n_nationkey
 LEFT JOIN practice_sandbox.ma_sandbox.silver_region r
     ON n.n_regionkey = r.r_regionkey
+ORDER BY total_spent desc
 
