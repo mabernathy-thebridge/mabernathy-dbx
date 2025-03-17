@@ -1,3 +1,4 @@
+CREATE OR REPLACE VIEW practice_sandbox.ma_sandbox.gold_dim_customer AS
 SELECT 
     c.c_custkey as customer_key,
     TRIM(c.c_name) as customer_name,

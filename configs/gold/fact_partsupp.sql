@@ -1,3 +1,4 @@
+CREATE OR REPLACE VIEW practice_sandbox.ma_sandbox.gold_fact_partsupp AS
 SELECT
     ps_partkey as part_key,
     ps_suppkey as supplier_key,

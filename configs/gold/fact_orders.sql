@@ -1,3 +1,4 @@
+CREATE OR REPLACE VIEW practice_sandbox.ma_sandbox.gold_fact_orders AS
 SELECT 
     o.o_orderkey as order_key,
     o.o_custkey as customer_key,

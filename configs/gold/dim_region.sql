@@ -1,3 +1,4 @@
+CREATE OR REPLACE VIEW practice_sandbox.ma_sandbox.gold_dim_region AS
 SELECT 
     r_regionkey as region_key,
     TRIM(r_name) as region_name,

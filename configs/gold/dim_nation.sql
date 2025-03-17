@@ -1,3 +1,4 @@
+CREATE OR REPLACE VIEW practice_sandbox.ma_sandbox.gold_dim_nation AS
 SELECT 
     n.n_nationkey as nation_key,
     TRIM(n.n_name) as nation_name,

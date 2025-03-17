@@ -1,3 +1,4 @@
+CREATE OR REPLACE VIEW practice_sandbox.ma_sandbox.gold_dim_part AS
 SELECT 
     p_partkey as part_key,
     TRIM(p_name) as part_name,

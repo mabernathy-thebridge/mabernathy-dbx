@@ -1,3 +1,4 @@
+CREATE OR REPLACE VIEW practice_sandbox.ma_sandbox.gold_fact_lineitem AS
 SELECT 
     l_orderkey as order_key,
     l_partkey as part_key,

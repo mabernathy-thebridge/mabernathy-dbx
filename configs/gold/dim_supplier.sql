@@ -1,3 +1,4 @@
+CREATE OR REPLACE VIEW practice_sandbox.ma_sandbox.gold_dim_supplier AS
 SELECT 
     s.s_suppkey as supplier_key,
     TRIM(s.s_name) as supplier_name,
